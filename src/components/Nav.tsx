@@ -13,7 +13,7 @@ export const Nav = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const NavLinks = (
+export const NavLink = (
   props: Omit<ComponentProps<typeof Link>, "classname">
 ) => {
   const pathname = usePathname();
