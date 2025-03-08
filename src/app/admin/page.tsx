@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import db from "@/db/db";
+import { formatCurrency, formatNumber } from "@/lib/formatters";
 import React from "react";
 
 async function getSalesData() {
@@ -26,8 +27,8 @@ const AdminDashboard = async () => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <DashboardCard
         title="Sales"
-        subtitle={salesData.numberOfSales}
-        body={salesData.amount}
+        subtitle={formatNumber(salesData.numberOfSales)}
+        body={formatCurrency(salesData.amount)}
       />
     </div>
   );
