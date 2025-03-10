@@ -1,8 +1,7 @@
+"use client";
 
 const ProductForm = () => {
-  return (
-    <div>ProductForm</div>
-  )
-}
+  return <div>ProductForm</div>;
+};
 
-export default ProductForm
+export default ProductForm;
