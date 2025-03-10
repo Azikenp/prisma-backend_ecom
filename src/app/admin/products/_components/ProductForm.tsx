@@ -2,10 +2,11 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { formatCurrency } from "@/lib/formatters";
 import { useState } from "react";
 
 const ProductForm = () => {
-  const [priceInCents, setPriceInCents] = useState("");
+  const [priceInCents, setPriceInCents] = useState<number>();
 
   return (
     <form className="space-y-6">
@@ -22,8 +23,11 @@ const ProductForm = () => {
           name="priceInCents"
           required
           value={priceInCents}
-          onChange={(e) => setPriceInCents(e.target.value)}
+          onChange={(e) => setPriceInCents(Number(e.target.value) || undefined)}
         />
+        <div className="text-muted-foreground">
+          {formatCurrency((priceInCents || 0) / 100)}
+        </div>
       </div>
     </form>
   );
