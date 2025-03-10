@@ -1,9 +1,11 @@
-import React from 'react'
+import { Loader2 } from "lucide-react";
 
 const loading = () => {
   return (
-    <div>loading</div>
-  )
-}
+    <div className="flex justify-center">
+      <Loader2 className="size-24 animate-spin" />
+    </div>
+  );
+};
 
-export default loading
+export default loading;
