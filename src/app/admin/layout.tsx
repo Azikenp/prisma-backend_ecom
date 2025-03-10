@@ -15,7 +15,7 @@ export default function RootLayout({
         <NavLink href="/admin/users">Customers</NavLink>
         <NavLink href="/admin/orders">Sales</NavLink>
       </Nav>
-      <div className="container my-6">{children}</div>
+      <div className="container p-[2rem] my-6">{children}</div>
     </>
   );
 }
