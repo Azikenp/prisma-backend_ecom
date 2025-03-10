@@ -1,9 +1,13 @@
-import React from 'react'
+import PageHeader from "../_components/PageHeader";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <>
+      <div className="flex justify-between items-center gap-4">
+        <PageHeader>Products</PageHeader>
+      </div>
+    </>
+  );
+};
 
-export default page
+export default page;
