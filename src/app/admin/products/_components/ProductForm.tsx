@@ -6,12 +6,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { formatCurrency } from "@/lib/formatters";
 import { useState } from "react";
+import { addProduct } from "../../_components/_actions/products";
 
 const ProductForm = () => {
   const [priceInCents, setPriceInCents] = useState<number>();
 
   return (
-    <form className="space-y-6">
+    <form action={addProduct} className="space-y-6">
       {" "}
       <div className="space-y-2">
         <Label htmlFor="name">Name</Label>
@@ -43,7 +44,7 @@ const ProductForm = () => {
           <Input type="file" id="image" name="image" required />
         </div>
       </div>
-      <Button>Save</Button>
+      <Button type="submit">Save</Button>
     </form>
   );
 };
