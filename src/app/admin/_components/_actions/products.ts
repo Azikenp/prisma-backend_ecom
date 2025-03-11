@@ -1,6 +1,7 @@
 "use server";
 
 import { z } from "zod";
+import db from "@/db/db";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
 const imageSchema = fileSchema.refine(
@@ -21,4 +22,14 @@ export async function addProduct(formData: FormData) {
   if (result.success === false) {
     return result.error.formErrors.fieldErrors;
   }
+
+  const data = result.data 
+  
+  db.product.create({data: {
+    name:data.name,
+    description: data.description,
+    priceInCents: data.priceInCents,
+    filePath:,
+    imagePath:
+  }})
 }
