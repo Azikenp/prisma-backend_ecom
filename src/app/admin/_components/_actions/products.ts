@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import db from "@/db/db";
+import fs from 'fs/promises'
 
 const fileSchema = z.instanceof(File, { message: "Required" });
 const imageSchema = fileSchema.refine(
@@ -24,6 +25,9 @@ export async function addProduct(formData: FormData) {
   }
 
   const data = result.data 
+
+  await fs.mkdir("products", {recursive: true})
+  const filePath = `products/${crypto.randomUUID()}-${data.file.name}`
   
   db.product.create({data: {
     name:data.name,
