@@ -33,7 +33,7 @@ export async function addProduct(formData: FormData) {
     name:data.name,
     description: data.description,
     priceInCents: data.priceInCents,
-    filePath: filePath,
+    filePath:,
     imagePath:
   }})
 }
