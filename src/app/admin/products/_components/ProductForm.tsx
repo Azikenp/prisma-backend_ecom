@@ -7,13 +7,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { formatCurrency } from "@/lib/formatters";
 import { useState } from "react";
 import { addProduct } from "../../_components/_actions/products";
-import { useFormStatus } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 const ProductForm = () => {
   const [priceInCents, setPriceInCents] = useState<number>();
+  const [error, action] = useFormState(addProduct, {});
 
   return (
-    <form action={addProduct} className="space-y-6">
+    <form action={action} className="space-y-8">
       {" "}
       <div className="space-y-2">
         <Label htmlFor="name">Name</Label>
