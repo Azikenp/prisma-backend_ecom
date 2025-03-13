@@ -32,15 +32,18 @@ export async function addProduct(formData: FormData) {
 
   await fs.mkdir("public/products", { recursive: true });
   const imagePath = `/products/${crypto.randomUUID()}-${data.image.name}`;
-  await fs.writeFile(`public${imagePath}`, Buffer.from(await data.image.arrayBuffer()));
+  await fs.writeFile(
+    `public${imagePath}`,
+    Buffer.from(await data.image.arrayBuffer())
+  );
 
   db.product.create({
     data: {
       name: data.name,
       description: data.description,
       priceInCents: data.priceInCents,
-      filePath: filePath,
-      imagePath: imagePath,
+      filePath,
+      imagePath,
     },
   });
 }
