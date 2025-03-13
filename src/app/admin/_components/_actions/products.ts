@@ -3,6 +3,7 @@
 import { z } from "zod";
 import db from "@/db/db";
 import fs from "fs/promises";
+import { redirect } from "next/navigation";
 
 const fileSchema = z.instanceof(File, { message: "Required" });
 const imageSchema = fileSchema.refine(
@@ -37,7 +38,7 @@ export async function addProduct(formData: FormData) {
     Buffer.from(await data.image.arrayBuffer())
   );
 
-  db.product.create({
+  await db.product.create({
     data: {
       name: data.name,
       description: data.description,
@@ -46,4 +47,6 @@ export async function addProduct(formData: FormData) {
       imagePath,
     },
   });
+
+  redirect("/admin/products");
 }

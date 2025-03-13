@@ -44,9 +44,17 @@ const ProductForm = () => {
           <Input type="file" id="image" name="image" required />
         </div>
       </div>
-      <Button type="submit">Save</Button>
+      <SubmitButton />
     </form>
   );
 };
 
+
+function SubmitButton(){
+  return <Button type="submit">Save</Button>
+}
+
 export default ProductForm;
+
+
+
