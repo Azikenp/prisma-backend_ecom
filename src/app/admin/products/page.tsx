@@ -101,7 +101,7 @@ async function ProductsTable() {
                     </Link>
                   </DropdownMenuItem>
                   <ActiveToggleDropdownItem />
-                  <DeleteDropdownItem />
+                  <DeleteDropdownItem m/>
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
