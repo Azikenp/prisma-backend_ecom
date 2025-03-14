@@ -27,8 +27,14 @@ const page = () => {
 export default page;
 
 async function ProductsTable() {
-  const products = await db?.product.findMany({
-    select: { id: true, name: true },
+  const products = await db.product.findMany({
+    select: {
+      id: true,
+      name: true,
+      priceInCents: true,
+      isAvailableForPurchase: true,
+      _count: { select: { orders: true } },
+    },
   });
   return (
     <Table>
