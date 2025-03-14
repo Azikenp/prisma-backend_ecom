@@ -18,7 +18,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ActiveToggleDropdownItem, DeleteDropdownItem } from "./_components/ProductActions";
+import {
+  ActiveToggleDropdownItem,
+  DeleteDropdownItem,
+} from "./_components/ProductActions";
 
 const page = () => {
   return (
@@ -100,8 +103,11 @@ async function ProductsTable() {
                       Edit
                     </Link>
                   </DropdownMenuItem>
-                  <ActiveToggleDropdownItem />
-                  <DeleteDropdownItem />
+                  <ActiveToggleDropdownItem
+                    id={product.id}
+                    isAvailableForPurchase={product.isAvailableForPurchase}
+                  />
+                  <DeleteDropdownItem  />
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>
