@@ -58,3 +58,7 @@ export async function toggleProductAvailability(
 ) {
   await db.product.update({ where: { id }, data: { isAvailableForPurchase } });
 }
+
+export async function deleteProduct(id: string) {
+  await db.product.delete({ where: { id } });
+}
