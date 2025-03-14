@@ -35,6 +35,7 @@ async function ProductsTable() {
       isAvailableForPurchase: true,
       _count: { select: { orders: true } },
     },
+    orderBy: { name: "asc" },
   });
   return (
     <Table>
