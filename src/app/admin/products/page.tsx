@@ -10,7 +10,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, MoreVertical, XCircle } from "lucide-react";
+import { formatCurrency, formatNumber } from "@/lib/formatters";
 
 const page = () => {
   return (
@@ -71,6 +72,12 @@ async function ProductsTable() {
                   <span className="sr-only">Unavailable</span>
                 </>
               )}
+            </TableCell>
+            <TableCell>{product.name}</TableCell>
+            <TableCell>{formatCurrency(product.priceInCents / 100)}</TableCell>
+            <TableCell>{formatNumber(product._count.orders)}</TableCell>
+            <TableCell>
+              <MoreVertical />
             </TableCell>
           </TableRow>
         ))}
