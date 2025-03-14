@@ -1,3 +1,5 @@
+"use client"
+
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import { useTransition } from "react";
 import { deleteProduct, toggleProductAvailability } from "../../_components/_actions/products";
