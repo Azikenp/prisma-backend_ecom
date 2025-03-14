@@ -89,8 +89,8 @@ async function ProductsTable() {
                   <span className="sr-only">Actions</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                  <DropdownMenuItem>
-                    <a href=""></a>
+                  <DropdownMenuItem asChild>
+                    <a href={`/admin/products/${product.id}/download`}>Download</a>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
