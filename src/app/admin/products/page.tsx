@@ -5,10 +5,12 @@ import Link from "next/link";
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { CheckCircle, XCircle } from "lucide-react";
 
 const page = () => {
   return (
@@ -37,6 +39,8 @@ async function ProductsTable() {
     },
     orderBy: { name: "asc" },
   });
+
+  if (products.length === 0) return <p>No products found</p>;
   return (
     <Table>
       <TableHeader>
@@ -52,7 +56,25 @@ async function ProductsTable() {
           </TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody></TableBody>
+      <TableBody>
+        {products.map((product) => (
+          <TableRow key={product.id}>
+            <TableCell>
+              {product.isAvailableForPurchase ? (
+                <>
+                  <CheckCircle />
+                  <span className="sr-only">Available</span>
+                </>
+              ) : (
+                <>
+                  <XCircle />
+                  <span className="sr-only">Unavailable</span>
+                </>
+              )}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
     </Table>
   );
 }
