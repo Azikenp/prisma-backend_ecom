@@ -78,6 +78,7 @@ async function ProductsTable() {
             <TableCell>{formatNumber(product._count.orders)}</TableCell>
             <TableCell>
               <MoreVertical />
+              <span className="sr-only">Actions</span>
             </TableCell>
           </TableRow>
         ))}
