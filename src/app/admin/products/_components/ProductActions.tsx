@@ -12,15 +12,36 @@ export const ActiveToggleDropdownItem = ({
   const [isPending, startTransition] = useTransition();
   return (
     <DropdownMenu
+      disabled={isPending}
       onClick={() => {
         startTransition(async () => {
           await toggleProductAvailability(id, !isAvailableForPurchase);
         });
       }}
-    ></DropdownMenu>
+    >
+      {isAvailableForPurchase ? "Deactivate" : "Activate"}
+    </DropdownMenu>
   );
 };
 
-export const DeleteDropdownItem = () => {
-  return <div>ActiveToggleDropdownItem</div>;
+export const DeleteDropdownItem = ({
+  id,
+  disabled,
+}: {
+  id: string;
+  disabled: boolean;
+}) => {
+  const [isPending, startTransition] = useTransition();
+  return (
+    <DropdownMenu
+      disabled={disabled || isPending}
+      onClick={() => {
+        startTransition(async () => {
+          await deleteProduct(id);
+        });
+      }}
+    >
+      Delete
+    </DropdownMenu>
+  );
 };
