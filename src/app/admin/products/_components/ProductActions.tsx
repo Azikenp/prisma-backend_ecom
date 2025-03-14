@@ -1,8 +1,11 @@
-"use client"
+"use client";
 
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import { useTransition } from "react";
-import { deleteProduct, toggleProductAvailability } from "../../_components/_actions/products";
+import {
+  deleteProduct,
+  toggleProductAvailability,
+} from "../../_components/_actions/products";
 
 export const ActiveToggleDropdownItem = ({
   id,
@@ -36,6 +39,7 @@ export const DeleteDropdownItem = ({
   const [isPending, startTransition] = useTransition();
   return (
     <DropdownMenu
+      variant="destructive"
       disabled={disabled || isPending}
       onClick={() => {
         startTransition(async () => {
