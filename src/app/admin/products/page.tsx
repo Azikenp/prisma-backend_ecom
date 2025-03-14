@@ -1,7 +1,14 @@
 import { Button } from "@/components/ui/button";
+import db from "@/db/db";
 import PageHeader from "../_components/PageHeader";
 import Link from "next/link";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const page = () => {
   return (
@@ -19,7 +26,10 @@ const page = () => {
 
 export default page;
 
-function ProductsTable() {
+async function ProductsTable() {
+  const products = await db?.product.findMany({
+    select: { id: true, name: true },
+  });
   return (
     <Table>
       <TableHeader>
@@ -35,9 +45,7 @@ function ProductsTable() {
           </TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
-        
-      </TableBody>
+      <TableBody></TableBody>
     </Table>
   );
 }
