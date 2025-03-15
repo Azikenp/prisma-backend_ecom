@@ -1,6 +1,6 @@
 "use client";
 
-import { DropdownMenu } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useTransition } from "react";
 import {
   deleteProduct,
@@ -16,7 +16,7 @@ export const ActiveToggleDropdownItem = ({
 }) => {
   const [isPending, startTransition] = useTransition();
   return (
-    <DropdownMenu
+    <DropdownMenuItem
       disabled={isPending}
       onClick={() => {
         startTransition(async () => {
@@ -25,7 +25,7 @@ export const ActiveToggleDropdownItem = ({
       }}
     >
       {isAvailableForPurchase ? "Deactivate" : "Activate"}
-    </DropdownMenu>
+    </DropdownMenuItem>
   );
 };
 
@@ -38,7 +38,7 @@ export const DeleteDropdownItem = ({
 }) => {
   const [isPending, startTransition] = useTransition();
   return (
-    <DropdownMenu
+    <DropdownMenuItem
       variant="destructive"
       disabled={disabled || isPending}
       onClick={() => {
@@ -48,6 +48,6 @@ export const DeleteDropdownItem = ({
       }}
     >
       Delete
-    </DropdownMenu>
+    </DropdownMenuItem>
   );
 };
