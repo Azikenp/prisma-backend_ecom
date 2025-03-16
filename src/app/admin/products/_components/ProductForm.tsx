@@ -10,8 +10,10 @@ import { addProduct } from "../../_components/_actions/products";
 import { useFormState, useFormStatus } from "react-dom";
 import { Product } from "@prisma/client";
 
-const ProductForm = ({ product }: { product?: Product | null}) => {
-  const [priceInCents, setPriceInCents] = useState<number>();
+const ProductForm = ({ product }: { product?: Product | null }) => {
+  const [priceInCents, setPriceInCents] = useState<number | undefined>(
+    product?.priceInCents
+  );
   const [error, action] = useFormState(addProduct, {});
 
   return (
