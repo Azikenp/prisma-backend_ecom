@@ -1,5 +1,8 @@
+import { Button } from "@/components/ui/button";
 import db from "@/db/db";
 import { Product } from "@prisma/client";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 function getMostPopularProducts() {
   return db.product.findMany({
@@ -42,7 +45,15 @@ function ProductGridSection({
 }: ProductGridSectionProps) {
   return (
     <div className="space-y-4">
-      <div className="flex gap-4"></div>
+      <div className="flex gap-4">
+        <h2 className="text-3xl font-bold">{title}</h2>
+        <Button variant="outline" asChild>
+          <Link href="/products" className="space-x-2">
+            <span>View All</span>
+            <ArrowRight className="size-4" />
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }
