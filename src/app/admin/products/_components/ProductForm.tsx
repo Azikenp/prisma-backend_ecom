@@ -74,9 +74,9 @@ const ProductForm = ({ product }: { product?: Product | null }) => {
       <div className="space-y-2">
         <Label htmlFor="image">Image</Label>
         <Input type="file" id="image" name="image" required={product == null} />
-        {product !== null && (
+        {product != null && (
           <Image
-            src={product?.imagePath}
+            src={product.imagePath}
             width={400}
             height={400}
             alt="product-image"
