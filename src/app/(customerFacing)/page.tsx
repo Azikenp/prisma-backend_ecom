@@ -1,6 +1,6 @@
 import db from "@/db/db";
 
-function getNewestProducts() {
+function getMostPopularProducts() {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { orders: { _count: "desc" } },
@@ -8,7 +8,7 @@ function getNewestProducts() {
   });
 }
 
-function getPopular() {
+function getNewestProducts() {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { createdAt: "desc" },
