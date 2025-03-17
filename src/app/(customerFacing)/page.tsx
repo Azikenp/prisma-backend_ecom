@@ -6,8 +6,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
-async function getMostPopularProducts() {
-  await wait(2000)
+function getMostPopularProducts() {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { orders: { _count: "desc" } },
@@ -15,17 +14,12 @@ async function getMostPopularProducts() {
   });
 }
 
-async function getNewestProducts() {
-  await wait(1000)
+function getNewestProducts() {
   return db.product.findMany({
     where: { isAvailableForPurchase: true },
     orderBy: { createdAt: "desc" },
     take: 6,
   });
-}
-
-function wait(duration: number) {
-  return new Promise((resolve) => setTimeout(resolve, duration));
 }
 
 const HomePage = () => {
