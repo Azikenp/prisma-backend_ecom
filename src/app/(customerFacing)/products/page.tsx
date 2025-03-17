@@ -3,7 +3,10 @@ import db from "@/db/db";
 import { Suspense } from "react";
 
 const getProducts = () => {
-  return db.product.findMany({ where: { isAvailableForPurchase: true } });
+  return db.product.findMany({
+    where: { isAvailableForPurchase: true },
+    orderBy: { name: "asc" },
+  });
 };
 
 const ProductsPage = () => {
