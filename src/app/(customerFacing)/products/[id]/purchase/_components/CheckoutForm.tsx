@@ -18,6 +18,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Image from "next/image";
+import { FormEvent, useState } from "react";
 
 type CheckoutFormProps = {
   product: {
@@ -64,11 +65,29 @@ const CheckoutForm = ({ product, clientSecret }: CheckoutFormProps) => {
 export default CheckoutForm;
 
 function Form({ priceInCents }: { priceInCents: number }) {
+  const [isLoading, setIsLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
 
+  function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    if (stripe == null || elements == null) return;
+
+    setIsLoading(true);
+
+    //Check for existing order
+
+    stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/stripe/purchase-success`,
+      },
+    });
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Card>
         <CardHeader>
           <CardTitle>Checkout</CardTitle>
@@ -78,7 +97,15 @@ function Form({ priceInCents }: { priceInCents: number }) {
           <PaymentElement />
         </CardContent>
         <CardFooter>
-          <Button>Purchase - {formatCurrency(priceInCents / 100)}</Button>
+          <Button
+            className="w-full"
+            size="lg"
+            disabled={stripe == null || elements == null || isLoading}
+          >
+            {isLoading
+              ? "Purchasing..."
+              : `Purchase - ${formatCurrency(priceInCents / 100)}`}
+          </Button>
         </CardFooter>
       </Card>
     </form>
