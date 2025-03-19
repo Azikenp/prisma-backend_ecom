@@ -5,6 +5,8 @@ type Callback = (...args: any[]) => Promise<any>;
 
 export function cache<T extends Callback>(
   cb: T,
-  keyparts: string[],
-  options: { revalidate?: number | false; tags: string }
-);
+  keyParts: string[],
+  options: { revalidate?: number | false; tags?: string[] } = {}
+) {
+  return nextCache(reactCache(cb), keyParts, options);
+}
