@@ -19,17 +19,13 @@ const getMostPopularProducts = cache(
   { revalidate: 60 * 60 * 24 }
 );
 
-const getNewestProducts = cache(
-  () => {
-    return db.product.findMany({
-      where: { isAvailableForPurchase: true },
-      orderBy: { createdAt: "desc" },
-      take: 6,
-    });
-  },
-  ["/", "getNewestProducts"],
-  { revalidate: 60 * 60 * 24 }
-);
+const getNewestProducts = cache(() => {
+  return db.product.findMany({
+    where: { isAvailableForPurchase: true },
+    orderBy: { createdAt: "desc" },
+    take: 6,
+  });
+}, ["/", "getNewestProducts"]);
 
 const HomePage = () => {
   return (
