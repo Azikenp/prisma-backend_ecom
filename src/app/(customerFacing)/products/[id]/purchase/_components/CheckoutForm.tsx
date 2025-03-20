@@ -1,5 +1,6 @@
 "use client";
 
+import { userOrderExist } from "@/app/actions/orders";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,12 +13,12 @@ import {
 import { formatCurrency } from "@/lib/formatters";
 import {
   Elements,
+  LinkAuthenticationElement,
   PaymentElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { error } from "console";
 import Image from "next/image";
 import { FormEvent, useState } from "react";
 
@@ -57,7 +58,7 @@ const CheckoutForm = ({ product, clientSecret }: CheckoutFormProps) => {
         </div>
       </div>
       <Elements options={{ clientSecret }} stripe={stripe}>
-        <Form priceInCents={product.priceInCents} />
+        <Form priceInCents={product.priceInCents} ProductId={product.id} />
       </Elements>
     </div>
   );
@@ -65,20 +66,36 @@ const CheckoutForm = ({ product, clientSecret }: CheckoutFormProps) => {
 
 export default CheckoutForm;
 
-function Form({ priceInCents }: { priceInCents: number }) {
+function Form({
+  priceInCents,
+  ProductId,
+}: {
+  priceInCents: number;
+  ProductId: string;
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
+  const [email, setEmail] = useState<string>("");
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    if (stripe == null || elements == null) return;
+    if (stripe == null || elements == null || email == null) return;
 
     setIsLoading(true);
 
     //Check for existing order
+    const orderExists = await userOrderExist(email, ProductId);
+
+    if (orderExists) {
+      setErrorMessage(
+        "You have already purchased this product, try downloading it from the My Orders page"
+      );
+      setIsLoading(false);
+      return;
+    }
 
     stripe
       .confirmPayment({
@@ -110,6 +127,12 @@ function Form({ priceInCents }: { priceInCents: number }) {
         </CardHeader>
         <CardContent>
           <PaymentElement />
+          <div className="mt-4">
+            {" "}
+            <LinkAuthenticationElement
+              onChange={(e) => setEmail(e.value.email)}
+            />
+          </div>
         </CardContent>
         <CardFooter>
           <Button
