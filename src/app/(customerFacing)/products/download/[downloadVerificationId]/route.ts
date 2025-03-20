@@ -13,14 +13,18 @@ export async function GET(
     select: { product: { select: { filePath: true, name: true } } },
   });
 
-  const { size } = await fs.stat(product.filePath);
-    const file = await fs.readFile(product.filePath);
-    const extension = product.filePath.split(".").pop();
-  
-    return new NextResponse(file, {
-      headers: {
-        "Content-Disposition": `attachement; filename="${product.name}.${extension}"`,
-        "Content-Length": size.toString(),
-      },
-    });
+  if (data == null) {
+    return NextResponse.redirect(new URL("products/download/expired", req.url));
+  }
+
+  const { size } = await fs.stat(data.product.filePath);
+  const file = await fs.readFile(data.product.filePath);
+  const extension = data.product.filePath.split(".").pop();
+
+  return new NextResponse(file, {
+    headers: {
+      "Content-Disposition": `attachement; filename="${data.product.name}.${extension}"`,
+      "Content-Length": size.toString(),
+    },
+  });
 }
